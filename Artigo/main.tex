@@ -11,7 +11,7 @@
 \usepackage[thinc]{esdiff}
 \usepackage{upgreek}
 \usepackage{csquotes}
-\usepackage[backend = biber]{biblatex}\\
+\usepackage[backend = biber]{biblatex}
 \addbibresource{refs.bib}
 
 \usepackage[letterpaper,top=3cm,bottom=2cm,left=3cm,right=2cm,marginparwidth=1.75cm]{geometry}
@@ -59,13 +59,15 @@ Nosso sistema eco-epidemiológico é constituído de três espécies, sendo elas
 A partir das suposições acimas, obtemos o seguinte sistema de EDOs:
 \begin{equation*}
 \begin{split}
-    \diff{S}{t} & = r(S+I) \left( 1 - \dfrac{S+I}{k} \right) - bSI - \upeta \upgamma_1(S)Y, \\
-    \diff{I}{t} & = bSI - \upgamma(I)Y - cI, \\
-    \diff{Y}{t} & = (\varepsilon \upgamma(I) + \upeta \varepsilon \upgamma_1(S) - d)Y.
+    \begin{cases}
+    \diff{S}{t} & = r(S+I) \left( 1 - \dfrac{S+I}{k} \right) - bSI - \upeta \upgamma_1(S)Y \\
+    \diff{I}{t} & = bSI - \upgamma(I)Y - cI \\
+    \diff{Y}{t} & = (\varepsilon \upgamma(I) + \upeta \varepsilon \upgamma_1(S) - d)Y
+    \end{cases}
 \end{split}
 \end{equation*}
 
-O parâmetro $r$ é a taxa de crescimento intrínseca da população de presas suscetíveis, $k$ é o suporte do ecossistema ou capacidade de suporte ambiental, $b$ é a taxa de transmissão entre as populações de presas sãs e infectadas, $c$ é a taxa de mortalidade natural das presas infectadas (sem ser devido à predação), $d$ é a taxa de mortalidade da população de predadores, $\varepsilon$ é a taxa de conversão de presas em predadores, e $\upgamma(I)$ e $\upeta \upgamma(S)$ são as funções de resposta do predador.
+O parâmetro $r$ é a taxa de crescimento intrínseca da população de presas suscetíveis, $k$ é o suporte do ecossistema ou capacidade de suporte ambiental, $b$ é a taxa de transmissão entre as populações de presas sãs e infectadas, $c$ é a taxa de mortalidade natural das presas infectadas (sem ser devido à predação), $d$ é a taxa de mortalidade da população de predadores, $\varepsilon$ é a taxa de conversão de presas em predadores, e $\upgamma(I)$ e $\upeta \upgamma(S)$ são as respostas funcionais do predador. Vale ressaltar que a resposta funcional quantifica como a taxa de consumo de consumidores individuais muda em função da densidade de recursos. Para fins de simulações, é amplamente utilizada uma resposta funcional do tipo III (sigmóide), na qual a taxa de ataque acelera inicialmente e depois desacelera quando chega ao ponto em que o consumidor fica com a barriga cheia.
 
 \subsection{Compartimento S}
 O primeiro compartimento do modelo é o $S$. Esse compartimento representa a população de presas sãs e suscetíveis, ou seja, que não estão contaminadas, mas podem contrair a doença. A população de presas cresce segundo uma lei logística contendo toda a equação das presas. Adicionalmente, as presas passam de suscetíveis para infectadas conforme a lei da ação das massas. Desse modo, a variação desse compartimento é descrita pela equação
@@ -135,5 +137,71 @@ ou seja, $\varepsilon$ é adimensional e
     [d] = \dfrac{1}{[\text{tempo}]}.
 \end{equation*}
 
+\section{Resultados}
+\subsection{Equilíbrios e suas estabilidades}
+Vamos analisar o modelo bidimensional obtido ao considerar $r = + \infty$. Uma das conclusões obtidas no trabalho de modelagem por Joydev Chattopadhyay e Ovide Arino \cite{chattopadhyay} é que o comportamento assintótico do sistema tridimensional é muito próximo do modelo bidimensional obtido por essa consideração. As equações desse sistema bidimensional são:
+\begin{equation}\label{eq:sist_bi}
+\begin{split}
+    \begin{cases}
+    \diff{I}{t} & = bI(k - I) - \upgamma(I)Y - cI \\
+    \diff{Y}{t} & = (\varepsilon \upgamma(I) - d)Y
+    \end{cases}
+\end{split}
+\end{equation}
+
+O modelo bidimensional possui os seguintes equilíbrios não negativos:
+\begin{equation*}
+\begin{split}
+    E_0 & = (0,0), \\
+    E_1 & = \left( k - \dfrac{c}{b}, 0 \right), \\
+    E_* & = (I^*, Y^*),
+\end{split}
+\end{equation*}
+sendo $\varepsilon \upgamma(I^*) = d$ e $Y^* = \dfrac{\varepsilon I^* ((bk - c) - bI^*)}{d}$. O equilibro $E_0$ é localmente assintoticamente estável se $k < \dfrac{c}{b}$ e é instável se $k > \dfrac{c}{b}$. O equilíbrio $E_1$ é localmente assintoticamente estável se $k > \dfrac{c}{b}$ e $\varepsilon \upgamma(I^*) - d < 0$. $E_1$ é instável se uma das duas condições forem quebradas.
+
+\section{Discussão}
+O parâmetro $r$ do modelo representa a taxa de crescimento da população de presas suscetíveis. Quanto maior $r$, mais rápido a população atinge o suporte do ecossistema. Para $r = + \infty$, podemos considerar $s + i = k$. Desse modo, o sistema reduz para duas dimensões, como apresentado na Equação \ref{eq:sist_bi}. A partir desse sistema, determinaram-se os equilíbrios e suas estabilidades. 
+
+A análise de estabilidade local pode ser realizada calculando-se as matrizes variacionais correspondentes a cada equilíbrio. Seja $V_0$ a matriz variacional referente a $E_0$. Temos que  
+\begin{equation*}
+    V_0 = 
+    \begin{bmatrix}
+        bk - c & 0 \\
+        0 & -d \\
+    \end{bmatrix},
+\end{equation*}
+e, consequentemente, os autovalores são $-d$ e $bk - c$. Seja $V_1$ a matriz variacional referente a $E_1$. Temos 
+\begin{equation*}
+    V_1 = 
+    \begin{bmatrix}
+        c - bk & - \upgamma(I^*) \\ 
+        0 & \varepsilon \upgamma(I^*) - d \\
+    \end{bmatrix},
+\end{equation*}
+sendo os autovalores da matriz $c-bk$ e $\varepsilon \upgamma(I^*) - d$. Seja $V_*$ a matriz variacional referente a $E_*$, assim,
+\begin{equation*}
+    V_* =
+    \begin{bmatrix}
+        - b I^* + \dfrac{\upgamma(I^*)Y^*}{I^*} - \upgamma'(I^*) Y^* & -\upgamma(I^*) \\
+        \varepsilon \upgamma'(I^*)Y^* & 0 \\.
+    \end{bmatrix}
+\end{equation*}
+
+A equação característica de $V_*$ é 
+\begin{equation*}
+    \lambda^2 - \lambda \left( \dfrac{\upgamma(I^*)Y^*}{I^*} - b I^* -  \upgamma'(I^*) Y^* \right) + \varepsilon \upgamma'(I^*)Y^*\upgamma'(I^*) = 0.
+\end{equation*}
+
+Sendo assim, é evidente que se $\left( \dfrac{\upgamma(I^*)Y^*}{I^*} - b I^* -  \upgamma'(I^*) Y^* \right) > 0$, o equilíbrio é instável. Se for menor que zero, o equilíbrio é estável.
+
+Se o equilíbrio $E_1$ é localmente assintoticamente estável, a população de predador não vai persistir. Em contrapartida, a população infectada vai sobreviver. 
+
+É necessário que $k > \dfrac{c}{b}$ para que exista a componente $I^*$ do equilíbrio positivo. Note que essa condição implica a existência do equilíbrio $E_1$. Desse modo, concluímos que a existência de $E_*$ implica a existência de $E_1$, porém o contrário não é válido.
+
+
+\section{Conclusão}
+Analisamos um modelo tridimensional de uma dinâmica predador-presa afetando a população de presas. O modelo possui três espécies: presas suscetíveis, presas infectadas e predadores. Assumindo que a taxa de crescimento da população de presas, $r$, era $+ \infty$, transformamos um modelo tridimensional em bidimensional, sem perda significativa de resultados para o comportamento assintótico do primeiro. Encontramos os equilíbrios do sistema bidimensional e suas respectivas estabilidades.
+
+Em trabalhos futuros, podem ser explorados os seguintes casos: a população de predadores também é afetada pela doença, uma parte da população de presas infectadas se recuperam e retornam para a população de presas suscetíveis e a doença é transmitida hereditariamente. 
 \printbibliography
 \end{document}
