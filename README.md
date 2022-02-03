@@ -4,7 +4,7 @@ Repositório contendo as soluções para a A1 e A2 da disciplina Modelagem de Fe
 
 Equipe: Fernanda Luísa Silva Gomes e João Lucas Duim
 
-Professor: Flávio Codeço Coelho
+Professor: [Flávio Codeço Coelho](https://emap.fgv.br/corpo-docente/flavio-codeco-coelho)
 
 Tema: Dinâmica predador-presa com doenças afetando a população de presas
 
