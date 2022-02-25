@@ -1,4 +1,4 @@
-# A1/A2 - Modelagem de Fenômenos Biológicos
+# Modelagem de Fenômenos Biológicos
 
 Repositório contendo as soluções para a A1 e A2 da disciplina Modelagem de Fenômenos Biológicos da graduação em Matemática Aplicada pela FGV EMAp.
 
