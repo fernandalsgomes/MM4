@@ -1,10 +1,10 @@
-# A1/A2 - Modelagem de Fenômenos Biológicos
+# Modelagem de Fenômenos Biológicos
 
 Repositório contendo as soluções para a A1 e A2 da disciplina Modelagem de Fenômenos Biológicos da graduação em Matemática Aplicada pela FGV EMAp.
 
 Equipe: Fernanda Luísa Silva Gomes e João Lucas Duim
 
-Professor: Flávio Codeço Coelho
+Professor: [Flávio Codeço Coelho](https://emap.fgv.br/professores/flavio-codeco-coelho-0)
 
 Tema: Dinâmica predador-presa com doenças afetando a população de presas
 
